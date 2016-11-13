@@ -4,4 +4,12 @@ package sample;
  * Created by GREEN on 13.11.2016.
  */
 public class Maps {
+    MapFacade playerMap;
+    MapFacade enemyMap;
+    public void updatePlayerMap(){
+
+    }
+    public void updateEnemyMap(){
+
+    }
 }
