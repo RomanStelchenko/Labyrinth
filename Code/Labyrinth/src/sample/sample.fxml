@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.effect.Blend?>
@@ -11,9 +12,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MapBuildController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MapBuildController">
    <children>
-      <GridPane fx:id="mapPane" gridLinesVisible="true" layoutX="36.0" layoutY="68.0" maxHeight="300.0" maxWidth="300.0" prefHeight="300.0" prefWidth="300.0">
+      <GridPane fx:id="mapPane" alignment="CENTER" gridLinesVisible="true" layoutX="36.0" layoutY="68.0" maxHeight="400.0" maxWidth="400.0" prefHeight="400.0" prefWidth="400.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -39,7 +40,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <GridPane fx:id="spritePane" hgap="10.0" layoutX="386.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
+      <GridPane fx:id="spritePane" hgap="10.0" layoutX="500.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -57,81 +58,129 @@
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallUp.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallDown" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallDownClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallDown.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallLeft" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallLeftClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallLeft.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallRight" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallRightClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallRight.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallDownLeft" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallDownLeftClicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallDownLeft.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallDownRight" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallDownRightClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallDownRight.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteUpRight" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteUpRightClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallUpRight.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallUpLeft" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallUpLeftClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallUpLeft.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallUpLeftRight" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallUpLeftRightClicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallUpLeftRight.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallDownLeftRight" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallDownLeftRightClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallDownLeftRight.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallDownUpLeft" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallDownUpLeftClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallDownUpLeft.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallDownUpRight" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallDownUpRightClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallDownUpRight.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallNone" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallNoneClicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallNone.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallUpDown" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallUpDownClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallUpDown.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="spriteWallLeftRight" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spriteWallLeftRightClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <image>
                   <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/wallLeftRight.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
          </children>
       </GridPane>
-      <HBox layoutX="382.0" layoutY="291.0" prefHeight="100.0" prefWidth="200.0">
+      <HBox layoutX="500.0" layoutY="285.0" prefHeight="52.0" prefWidth="200.0">
          <children>
             <Spinner fx:id="spinnerX" cache="true" prefWidth="70.0">
                <effect>
@@ -141,5 +190,148 @@
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="OK" />
          </children>
       </HBox>
+      <GridPane gridLinesVisible="true" layoutX="36.0" layoutY="490.0" prefHeight="100.0" prefWidth="400.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="spriteHole1" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteHole1Clicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/hole1L.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteDoor1Clicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/door1L.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteHole2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/hole2L.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteDoor2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/door2L.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteHole3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/hole3L.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteDoor3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/door3L.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteHole4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/hole4L.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteDoor4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/door4L.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteRealTreasureClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/realTreasureL.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteTrapClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/trapL.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteFalseTreasure1Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/falseTreasureL.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteCrutchClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/crutchL.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteFalseTreasure2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/falseTreasureL.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteCrossbowClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/crossbowL.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#spriteFalseTreasure3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
+               <image>
+                  <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/falseTreasureL.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </GridPane>
    </children>
 </Pane>
