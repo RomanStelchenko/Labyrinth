@@ -3,6 +3,7 @@ package sample;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
@@ -23,6 +24,8 @@ public class MapBuildController {
     boolean spriteFlag;
     @FXML
     Spinner spinnerX,spinnerY;
+    @FXML
+    ComboBox connectComboBox;
     @FXML
     GridPane mapPane;
     @FXML
@@ -80,7 +83,14 @@ public class MapBuildController {
             mapPane.getChildren().add(trapBonusImages[i]);
             trapBonusImages[i].setVisible(false);
         }
-
+    }
+    public void startButtonClicked(){
+        try {
+            new GameWindow();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void spriteHole1Clicked(){
