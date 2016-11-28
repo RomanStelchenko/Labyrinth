@@ -9,11 +9,17 @@ import javafx.stage.Stage;
  * Created by GREEN on 15.11.2016.
  */
 public class MapBuildWindow {
+    MapBuildController children;
     public MapBuildWindow() throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        children = new MapBuildController();
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("connect.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        Parent root =(Parent) fxmlLoader.load();
+        children = fxmlLoader.getController();
         Stage primaryStage = new Stage();
         primaryStage.setTitle("MapBuild");
+        //primaryStage.setScene(new Scene(root, 250, 380));
         primaryStage.setScene(new Scene(root, 800, 650));
         primaryStage.show();
     }

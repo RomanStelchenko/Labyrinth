@@ -7,7 +7,11 @@ import java.util.ArrayList;
  */
 public class MapSubjectList {
     private ArrayList<MapSubject> list;
-    private int lenght;
+    public  void addAll(MapSubject[] subjects){
+        for(int i=0;i<subjects.length;i++){
+            list.add(subjects[i]);
+        }
+    }
     public void addMapSubject(MapSubject mapSubjectValue){
         list.add(mapSubjectValue);
     }
@@ -17,11 +21,12 @@ public class MapSubjectList {
     public MapSubject getMapSubject(int index){
         return list.get(index);
     }
-    public void setLenght(int lenghtValue){
-        lenght = lenghtValue;
-    }
-    public int getLenght(){
-        return lenght;
-    }
 
+    public MapSubject[] getAll(){
+        MapSubject[] subjects = new MapSubject[list.size()];
+        for(int i = 0; i < list.size(); i++){
+            subjects[i] = list.get(i);
+        }
+        return subjects;
+    }
 }
