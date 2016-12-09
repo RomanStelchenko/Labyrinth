@@ -4,30 +4,38 @@ package sample;
  * Created by GREEN on 13.11.2016.
  */
 public class Coords {
-    private int x;
-    private int y;
+    private int row;
+    private int column;
     Coords(){
-        x = 0;
-        y = 0;
+        row = 0;
+        column = 0;
     }
-    Coords(int xValue, int yValue){
-        x = xValue;
-        y = yValue;
+    Coords(int rowValue, int columnValue){
+        row = rowValue;
+        column = columnValue;
     }
-    public void setX(int xValue){
-        x = xValue;
+    public void setRow(int rowValue){
+        row = rowValue;
     }
-    public void setY(int yValue){
-        y = yValue;
+    public void setColumn(int columnValue){
+        column = columnValue;
     }
-    public void setXY(int xValue, int yValue){
-        x = xValue;
-        y = yValue;
+    public void setRowColumn(int rowValue, int columnValue){
+        row = rowValue;
+        column = columnValue;
     }
-    public int getY(){
-        return y;
+    public void setRowColumn(Coords coordsValue){
+        row = coordsValue.row;
+        column = coordsValue.column;
     }
-    public int getX(){
-        return x;
+    public int getColumn(){
+        return column;
     }
+    public int getRow(){
+        return row;
+    }
+    public void incRow(){ row++;}
+    public void incColumn(){ column++;}
+    public void decRow(){ row--;}
+    public void decColumn(){ column--;}
 }

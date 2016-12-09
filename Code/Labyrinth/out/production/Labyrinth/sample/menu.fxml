@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.menuController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.menuController">
    <children>
       <ImageView fitHeight="303.0" fitWidth="400.0" layoutX="-52.0" layoutY="68.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -20,7 +20,7 @@
             <Button mnemonicParsing="false" onMouseClicked="#startButtonClicked" prefHeight="40.0" prefWidth="150.0" text="Start" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Settings" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Statistics" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Help" />
+            <Button mnemonicParsing="false" onMouseClicked="#infoButtonClicked" prefHeight="40.0" prefWidth="150.0" text="Help" />
             <Button mnemonicParsing="false" onMouseClicked="#exitButtonClicked" prefHeight="40.0" prefWidth="150.0" text="Exit" />
          </children>
       </VBox>

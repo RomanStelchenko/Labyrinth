@@ -5,6 +5,7 @@ package sample;
  */
 public class Person {
     Coords position;
+    int treasure;
     int grenadeNum;
     int bonusNum;
     int trapNum;

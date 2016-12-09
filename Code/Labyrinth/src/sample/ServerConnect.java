@@ -11,10 +11,8 @@ public class ServerConnect implements  Strategy {
     Socket socket = null;
     ServerSocket server;
     public Socket connect() throws IOException {
-        System.out.println(22);
         ServerSocket server = new ServerSocket(8030);
         socket = server.accept();
-        System.out.println(33);
         return socket;
 
     }

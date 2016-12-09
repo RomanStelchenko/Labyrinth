@@ -11,7 +11,7 @@ public class MapSubject {
         position = new Coords();
     }
     public void setCoords(Coords positionValue){
-        position.setXY(positionValue.getX(),positionValue.getY());
+        position.setRowColumn(positionValue.getRow(),positionValue.getColumn());
     }
     public void setStatus(int statusValue){
         status = statusValue;

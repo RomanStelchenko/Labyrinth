@@ -8,7 +8,7 @@ public class TableText {
     private String time;
     private String playerName;
 
-    TableText(String kProcess, String kTime, String kPlayerName) {
+    TableText( String kPlayerName,String kProcess, String kTime) {
         this.process  = new String (kProcess);
         this.time = new String(kTime);
         this.playerName  = new String(kPlayerName);

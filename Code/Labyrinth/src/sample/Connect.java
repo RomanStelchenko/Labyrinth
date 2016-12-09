@@ -7,17 +7,17 @@ import java.net.Socket;
  * Created by GREEN on 13.11.2016.
  */
 public class Connect {
-    WriteThread writeThread;
-    ReadThread readThread;
-    ConnectThread connectThread;
-    String readLine;
-    String writeLine;
-    Socket socket = null;
-    InputStream sin;
-    OutputStream sout;
-    DataInputStream in;
-    DataOutputStream out;
-    BufferedReader keyboard;
+    private WriteThread writeThread;
+    private ReadThread readThread;
+    private ConnectThread connectThread;
+    private String readLine;
+    private String writeLine;
+    private Socket socket = null;
+    private InputStream sin;
+    private OutputStream sout;
+    private DataInputStream in;
+    private DataOutputStream out;
+    private BufferedReader keyboard;
 
     private Strategy strategy;
     private boolean readReady;
@@ -54,11 +54,13 @@ public class Connect {
             try {
                 while (true) {
                     while (writeLine == null) {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     }
                     out.writeUTF(writeLine); // отсылаем введенную строку текста серверу.
                     out.flush(); // заставляем поток закончить передачу данных.
                     writeLine = null;
+                    Thread.sleep(500);
+
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -75,7 +77,10 @@ public class Connect {
                 while (true) {
                     readLine = in.readUTF(); // ждем пока сервер отошлет строку текста.
                     readReady = true;
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
+                    while (readReady == true) {
+                        Thread.sleep(500);
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -88,19 +93,16 @@ public class Connect {
     class ConnectThread extends Thread {
         public void run() {
             try {
-                System.out.println(1);
                 socket = strategy.connect();
                 sin = socket.getInputStream();
                 sout = socket.getOutputStream();
                 in = new DataInputStream(sin);
                 out = new DataOutputStream(sout);
                 keyboard = new BufferedReader(new InputStreamReader(System.in));
-                System.out.println(2);
                 writeThread = new WriteThread();
                 writeThread.start();
                 readThread = new ReadThread();
                 readThread.start();
-                System.out.println(3);
                 while (true) {
                     try {
                         Thread.sleep(2000);
