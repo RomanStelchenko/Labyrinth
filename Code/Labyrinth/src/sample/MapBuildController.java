@@ -5,8 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -16,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class MapBuildController {
 
@@ -138,23 +138,20 @@ public class MapBuildController {
     }
 
     public void startButtonClicked(){
-      /*
+
         String example;
         example = mapExample();
         if(example.equals("ok") == false){
-            System.out.println(example);
+            exampleDialog(example);
             return;
         }
-        */
         try {
             children = new GameController();
-            //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("connect.fxml"));
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("game.fxml"));
             Parent root =(Parent) fxmlLoader.load();
             children = fxmlLoader.getController();
             Stage primaryStage = new Stage();
             primaryStage.setTitle("Game");
-            //primaryStage.setScene(new Scene(root, 250, 380));
             primaryStage.setScene(new Scene(root, 1300, 650));
             primaryStage.show();
             mapExample();
@@ -162,9 +159,7 @@ public class MapBuildController {
                 children.setPlayerName("Unnamed");
             else children.setPlayerName(nameTextField.getText());
             children.setMap(new MapFacade(labyrinth,trapBonus),connectSelection);
-             //  System.out.println(children);
-            //  children.test();
-        }
+         }
         catch (Exception e) {
             e.printStackTrace();
         }
@@ -252,5 +247,15 @@ public class MapBuildController {
          }
         return binaryNumber;
     }
+    public void exampleDialog(String error){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Ошибка создания карты");
+        alert.setHeaderText("Карта заполнена некорректно");
+        alert.setContentText(error);
+        ButtonType buttonTypeCancel = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeCancel);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeCancel){
+        } }
 
 }

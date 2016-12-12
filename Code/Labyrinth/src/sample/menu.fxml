@@ -15,11 +15,10 @@
             <Image url="file:/L:/5%20sem/ТРиТПО/Labyrinth/Images/Labyrinth.gif" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutX="43.0" layoutY="105.0" prefHeight="258.0" prefWidth="156.0" spacing="10.0">
+      <VBox alignment="CENTER" layoutX="43.0" layoutY="103.0" prefHeight="258.0" prefWidth="156.0" spacing="30.0">
          <children>
             <Button mnemonicParsing="false" onMouseClicked="#startButtonClicked" prefHeight="40.0" prefWidth="150.0" text="Start" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Settings" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Statistics" />
             <Button mnemonicParsing="false" onMouseClicked="#infoButtonClicked" prefHeight="40.0" prefWidth="150.0" text="Help" />
             <Button mnemonicParsing="false" onMouseClicked="#exitButtonClicked" prefHeight="40.0" prefWidth="150.0" text="Exit" />
          </children>

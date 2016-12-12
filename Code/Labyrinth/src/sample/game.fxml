@@ -11,7 +11,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
@@ -461,6 +460,11 @@
                      <Cursor fx:constant="HAND" />
                  </cursor>
              </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <image>
+                  <Image url="file:Images/playerL.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
       <GridPane fx:id="enemyMapPane" gridLinesVisible="true" layoutX="824.0" layoutY="61.0" prefHeight="400.0" prefWidth="400.0">
@@ -593,15 +597,15 @@
          </children>
       </GridPane>
       <Separator layoutX="760.0" layoutY="1.0" orientation="VERTICAL" prefHeight="650.0" prefWidth="8.0" />
-      <TableView fx:id="processTable" editable="true" layoutX="824.0" layoutY="482.0" prefHeight="140.0" prefWidth="400.0">
+      <TableView fx:id="processTable" editable="true" layoutX="36.0" layoutY="482.0" prefHeight="153.0" prefWidth="400.0">
         <columns>
-          <TableColumn fx:id="playerNameColumn" prefWidth="69.0" text="Name" />
-          <TableColumn fx:id="processColumn" prefWidth="270.0" text="Process" />
-            <TableColumn fx:id="timeColumn" prefWidth="60.0" text="Time" />
+          <TableColumn fx:id="playerNameColumn" prefWidth="50.0" text="Name" />
+          <TableColumn fx:id="processColumn" prefWidth="300.0" text="Process" />
+            <TableColumn fx:id="timeColumn" prefWidth="50.0" text="Time" />
         </columns>
       </TableView>
-      <Button layoutX="630.0" layoutY="597.0" mnemonicParsing="false" onMouseClicked="#readyButtonClicked" prefHeight="25.0" prefWidth="70.0" text="Ready" />
-      <GridPane layoutX="36.0" layoutY="482.0" prefHeight="120.0" prefWidth="120.0">
+      <Button layoutX="500.0" layoutY="610.0" mnemonicParsing="false" onMouseClicked="#readyButtonClicked" prefHeight="25.0" prefWidth="200.0" text="Ready" />
+      <GridPane layoutX="580.0" layoutY="482.0" prefHeight="120.0" prefWidth="120.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -613,22 +617,22 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#rightButtonClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <ImageView fx:id="rightButtonImage" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#rightButtonClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
                   <Image url="file:Images/right.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="107.0" fitWidth="40.0" onMouseClicked="#downButtonClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <ImageView fx:id="downButtonImage" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#downButtonClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
                   <Image url="file:Images/down.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#leftButtonClicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+            <ImageView fx:id="leftButtonImage" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#leftButtonClicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
                   <Image url="file:Images/left.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#upButtonClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <ImageView fx:id="upButtonImage" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#upButtonClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
                   <Image url="file:Images/up.png" />
                </image>
@@ -640,15 +644,32 @@
             <Font name="Comic Sans MS" size="30.0" />
          </font>
       </Label>
-      <HBox layoutX="277.0" layoutY="474.0" prefHeight="25.0" prefWidth="159.0">
+      <GridPane layoutX="500.0" layoutY="482.0" prefHeight="120.0" prefWidth="40.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Label prefHeight="23.0" prefWidth="110.0" text="Grenade : ">
-               <font>
-                  <Font name="Arial" size="20.0" />
-               </font>
-            </Label>
-            <Button mnemonicParsing="false" onMouseClicked="#grenadeButtonClicked" text="Throw" />
+            <ImageView fx:id="bomb1Image" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#bomb1Clicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:Images/bomb.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bomb2Image" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#bomb2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="file:Images/bomb.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bomb3Image" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#bomb3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+               <image>
+                  <Image url="file:Images/bomb.png" />
+               </image>
+            </ImageView>
          </children>
-      </HBox>
+      </GridPane>
    </children>
 </Pane>

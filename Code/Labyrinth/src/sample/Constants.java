@@ -6,6 +6,17 @@ package sample;
 public class Constants {
     public static String blue = "file:Images/blue.png";
     public static String red = "file:Images/red.png";
+    public static String bomb = "file:Images/bomb.png";
+    public static String bombClicked = "file:Images/bombClicked.png";
+    public static String leftButton = "file:Images/left.png";
+    public static String leftButtonClicked = "file:Images/leftClicked.png";
+    public static String rightButton = "file:Images/right.png";
+    public static String rightButtonClicked = "file:Images/rightClicked.png";
+    public static String upButton = "file:Images/up.png";
+    public static String upButtonClicked = "file:Images/upClicked.png";
+    public static String downButton = "file:Images/down.png";
+    public static String downButtonClicked = "file:Images/downClicked.png";
+
     public static String player = "file:Images/playerL.png";
     public static String[] wallImagesUrl = {
             "file:Images/wallNone.png",
@@ -94,32 +105,14 @@ public class Constants {
     public String grenadeDownRequest = "11";
     public String pickTreasure = "12";
     public String onTreasure = "13";
-    public String readyAnswer = "0";
-    public String beginCoordsAnswer = "1";
-    public String wallAnswer = "2";
-    public String noWallFreeAnswer = "3";
-    public String noWallHole1Answer = "4";
-    public String noWallHole2Answer = "5";
-    public String noWallHole3Answer = "6";
-    public String noWallHole4Answer = "7";
-    public String noWallDoor1Answer = "8";
-    public String noWallDoor2Answer = "9";
-    public String noWallDoor3Answer = "10";
-    public String noWallDoor4Answer = "11";
-    public String noWallTrapAnswer = "12";
-    public String noWallCrossbowAnswer = "13";
-    public String noWallCrutchAnswer = "14";
-    public String noWallRealTreasureAnswer = "15";
-    public String noWallFalseTreasureAnswer = "16";
-    public String noWallGrenadeAnswer = "17";
+    public String onCrossbow = "14";
+    public String onCrutch = "15";
+    public String onTrap = "16";
 
     public static int ready =0;
     public static int beginCoords = 1;
     public static int course = 2;
     public static int game =3;
     Constants(){}
-    /*  lrud
-
-    */
 
 }

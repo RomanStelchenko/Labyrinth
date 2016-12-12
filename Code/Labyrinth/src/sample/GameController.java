@@ -32,11 +32,16 @@ public class GameController {
     private Coords coords;
     private Coords playerCoords;
     private Coords enemyCoords;
+    private boolean enemyCrossbowFlag,enemyCrutchFlag,enemyTrapFlag;
+    private boolean playerCrossbowFlag,playerCrutchFlag,playerTrapFlag;
     private Maps maps;
     private Connect connect;
+    private int bombValue;
     private int process;
+    private int selectionValue;
     private int connectSelection;
     private int readyAll;
+
     private ObservableList<TableText> dataTable = FXCollections.observableArrayList();
     private Calendar c;
     private String time;
@@ -48,12 +53,16 @@ public class GameController {
     private boolean grenadeFlag;
     private boolean treasureFlag;
     private boolean pickTreasure;
-private boolean flag;
-
+    private int grenadeValue;
+    private boolean flag;
+    private int courseNumbers = 0;
+    private int courseAll = 0;
     private String readLine;
     private readLineThread readThread;
     @FXML
     GridPane mapPane;
+    @FXML
+    ImageView leftButtonImage,rightButtonImage,upButtonImage,downButtonImage,bomb1Image,bomb2Image,bomb3Image;
     @FXML
     GridPane wallPane;
     @FXML
@@ -73,7 +82,11 @@ private boolean flag;
     private   ImageView enemyImage;
     @FXML
     public void initialize(){
+        bombValue = 3;
+        selectionValue = 4;
+        grenadeValue  = 3;
         enemyTreasureValue = 0;
+        courseNumbers =0;
         grenadeFlag = false;
         treasureFlag =false;
         flag =false;
@@ -158,30 +171,97 @@ private boolean flag;
 
     }
     public void leftButtonClicked(){
+
+        if(selectionValue!= mapConstant.left){
+            leftButtonImage.setImage(new Image(mapConstant.leftButtonClicked));
+            changeSelectionImage();
+            selectionValue = mapConstant.left;
+        }
         if(grenadeFlag)
             sendMessage = mapConstant.grenadeLeftRequest;
         else sendMessage = mapConstant.leftRequest;
     }
     public void rightButtonClicked(){
+        if(selectionValue!= mapConstant.right){
+            rightButtonImage.setImage(new Image(mapConstant.rightButtonClicked));
+            changeSelectionImage();
+            selectionValue = mapConstant.right;
+        }
         if(grenadeFlag)
             sendMessage = mapConstant.grenadeRightRequest;
         else sendMessage = mapConstant.rightRequest;
     }
     public void upButtonClicked(){
+        if(selectionValue!= mapConstant.up){
+            upButtonImage.setImage(new Image(mapConstant.upButtonClicked));
+            changeSelectionImage();
+            selectionValue = mapConstant.up;
+        }
         if(grenadeFlag)
             sendMessage = mapConstant.grenadeUpRequest;
         else sendMessage = mapConstant.upRequest;
     }
     public void downButtonClicked(){
+        if(selectionValue!= mapConstant.down){
+            downButtonImage.setImage(new Image(mapConstant.downButtonClicked));
+            changeSelectionImage();
+            selectionValue = mapConstant.down;
+        }
         if(grenadeFlag)
             sendMessage = mapConstant.grenadeDownRequest;
         else sendMessage = mapConstant.downRequest;
     }
-    public void grenadeButtonClicked(){
-        if(grenadeFlag == false)
-            grenadeFlag = true;
-        else grenadeFlag = false;
+    public void changeGrenadeImages(boolean isClicked) {
+        String imageUrl = new String();
+        if (isClicked)
+            imageUrl = mapConstant.bombClicked;
+        else imageUrl = mapConstant.bomb;
+        switch (bombValue) {
+            case 0:
+                bomb1Image.setImage(new Image(imageUrl));
+                break;
+            case 1:
+                bomb2Image.setImage(new Image(imageUrl));
+                break;
+            case 2:
+                bomb3Image.setImage(new Image(imageUrl));
+                break;
+            default:
+                break;
+        }
     }
+    public void changeGrenadeFlag(int number){
+        if(grenadeFlag == false) {
+            grenadeFlag = true;
+            bombValue = number;
+            changeGrenadeImages(true);
+        }
+        else {
+            changeGrenadeImages(false);
+            if(bombValue == number )
+                grenadeFlag = false;
+            else {
+                bombValue = number;
+                changeGrenadeImages(true);
+            }
+        }
+    }
+    public void disableGrenadeImages() {
+        switch (bombValue) {
+            case 0:
+                bomb1Image.setVisible(false);
+                break;
+            case 1:
+                bomb2Image.setVisible(false);
+                break;
+            case 2:
+                bomb3Image.setVisible(false);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void mapClicked(MouseEvent e) {
         Node source = (Node) e.getSource();
         if (mapPane.getRowIndex(source) != null)
@@ -219,10 +299,29 @@ private boolean flag;
         trapBonus[row*4+column].setRowColumn(coords.getRow(),coords.getColumn());
 
     }
-
-    public boolean getFlag(){
-    return flag;
-}
+    public void bomb1Clicked(){
+        changeGrenadeFlag(0);
+    }
+    public void bomb2Clicked(){
+        changeGrenadeFlag(1);
+    }
+    public void bomb3Clicked(){
+        changeGrenadeFlag(2);
+    }
+    public void changeSelectionImage(){
+        if(selectionValue == mapConstant.left){
+            leftButtonImage.setImage(new Image(mapConstant.leftButton));
+        }
+        if(selectionValue == mapConstant.right){
+            rightButtonImage.setImage(new Image(mapConstant.rightButton));
+        }
+        if(selectionValue == mapConstant.up){
+            upButtonImage.setImage(new Image(mapConstant.upButton));
+        }
+        if(selectionValue == mapConstant.down){
+            downButtonImage.setImage(new Image(mapConstant.downButton));
+        }
+    }
     public void setFlag(boolean flagL){
     flag = flagL;
 }
@@ -238,13 +337,11 @@ private boolean flag;
                 Platform.runLater(()->setFlag(false));
                 Platform.runLater(()->connect.clearReadReady());
                 Platform.runLater(()->setReadLime(connect.getReadLine()));
-                //readLine = new String(connect.readLine);
                 Platform.runLater(()->gameProcess());
                 threadSleep(100);
             }
         }
     }
-
 
     public void setReadLime(String line){
         readLine = new String(line);
@@ -261,7 +358,6 @@ private boolean flag;
                processLabel.setText("Выбор стартовых клеток игроками");
                process = mapConstant.beginCoords;
            }
-
            return;
        }
 
@@ -282,7 +378,6 @@ private boolean flag;
            }
            return;
        }
-
 
        if(process == mapConstant.course){
            if(readLine.equals("true"))
@@ -309,35 +404,38 @@ private boolean flag;
                if (selection.equals(mapConstant.endCourseRequest)) {
                    {
                        changeCourse();
-                    //   dataTable.add(new TableText("", selection, ""));
                    }
                }else{
                    if (selection.equals(mapConstant.onTreasure)) {
                        treasureFlag = true;
                    }
+                   if (selection.equals(mapConstant.onCrossbow)) {
+                      playerCrossbowFlag = true;
+                       courseAll++;
+                   }
+                   if (selection.equals(mapConstant.onCrutch)) {
+                       playerCrutchFlag = true;
+                     }
+                   if (selection.equals(mapConstant.onTrap)) {
+                       playerTrapFlag = true;
+                       if(enemyCrossbowFlag)
+                           courseNumbers = 7;
+                       else courseNumbers = 3;
+                   }
+
                    c = Calendar.getInstance();
                    time = new String(c.get(c.HOUR) + ":" + c.get(c.MINUTE) + ":" + c.get(c.SECOND));
                    dataTable.add(new TableText(playerName, selection, time));
-
                }
            }
            else{
 
                if(selection.equals(mapConstant.pickTreasure)){
-                   for(int i=0;i<15;i++){
-                       if(enemyTrapBonus[i].getRow()==enemyCoords.getRow() && enemyTrapBonus[i].getColumn() == trapBonus[i].getColumn()){
-                           if(i==mapConstant.realTreasureI)
-                               enemyTreasureValue =1;
-                           else
-                               enemyTreasureValue =2;
-                           break;
-                       }
-                   }
+                   enemyTreasureValue = 0;
                     return;
                }
 
 
-               changeCourse();
                int[] wall = new int[4];
                wall = toBinary(enemyLabyrinth[enemyCoords.getRow()][enemyCoords.getColumn()]);
 
@@ -368,7 +466,7 @@ private boolean flag;
                        if(enemyCoords.getRow()>9){
                            if(enemyTreasureValue == 1)
                                connect.setWriteLine("Клад настоящий");
-                           if(enemyTreasureValue == 2)
+                           else if(enemyTreasureValue == 2)
                                connect.setWriteLine("Клад ложный");
                            else connect.setWriteLine("У вас нету клада");
                            threadSleep(500);
@@ -389,7 +487,7 @@ private boolean flag;
                        if(enemyCoords.getColumn()<0){
                            if(enemyTreasureValue == 1)
                                connect.setWriteLine("Клад настоящий");
-                           if(enemyTreasureValue == 2)
+                           else if(enemyTreasureValue == 2)
                                connect.setWriteLine("Клад ложный");
                            else connect.setWriteLine("У вас нету клада");
                            threadSleep(500);
@@ -409,7 +507,7 @@ private boolean flag;
                        if(enemyCoords.getColumn()>9){
                            if(enemyTreasureValue == 1)
                                connect.setWriteLine("Клад настоящий");
-                           if(enemyTreasureValue == 2)
+                           else if(enemyTreasureValue == 2)
                                connect.setWriteLine("Клад ложный");
                            else connect.setWriteLine("У вас нету клада");
                            threadSleep(500);
@@ -492,17 +590,22 @@ private boolean flag;
                    dataTable.add(new TableText(enemyName, processText, time));
                    connect.setWriteLine("Вниз можно");
                }
-               threadSleep(500);
-               connect.setWriteLine(mapConstant.endCourseRequest);
+               System.out.println("cc " + courseNumbers +" "+ courseAll);
+               if(courseNumbers == 0 || enemyTrapFlag) {
+                   threadSleep(500);
+                   connect.setWriteLine(mapConstant.endCourseRequest);
+                   changeCourse();
+                   if(enemyTrapFlag)
+                       enemyTrapFlag = false;
+               }else courseNumbers--;
+
                if(treasureFlag){
                    treasureDialog();
                }
-
            }
            return;
        }
     }
-
     public void trapBonusExample(){
         int i;
         for(i=0;i<15;i++){
@@ -544,16 +647,22 @@ private boolean flag;
             connect.setWriteLine("Выход из ямы номер 4");
         }
         if(i == mapConstant.trapI){
-            connect.setWriteLine("Попал в капкан");
+            connect.setWriteLine(mapConstant.onTrap);
         }
         if(i == mapConstant.crossbowI){
-            connect.setWriteLine("Нашел арбалет. Количество ходов увеличивается");
+           connect.setWriteLine(mapConstant.onCrossbow);
+            enemyTrapFlag = true;
         }
         if(i == mapConstant.crutchI){
             connect.setWriteLine("Нашел костыль. Количество ходов уменьшается");
+            enemyCrossbowFlag = true;
+            courseAll++;
         }
         if(i == mapConstant.realTreasureI || i == mapConstant.falseTreasure1I || i == mapConstant.falseTreasure2I
                                         || i == mapConstant.falseTreasure3I){
+            if(i == mapConstant.realTreasureI)
+                enemyTreasureValue = 1;
+            else enemyTreasureValue = 2;
             connect.setWriteLine(mapConstant.onTreasure);
         }
         threadSleep(500);
@@ -611,8 +720,11 @@ private boolean flag;
             course = true;
         }
         else {
+            if(!playerTrapFlag)
+                courseNumbers = courseAll;
+            else playerTrapFlag = false;
             processLabel.setText("Ход соперника");
-        course  = false;
+            course  = false;
         }
     }
     public void readyButtonClicked() {
@@ -628,7 +740,6 @@ private boolean flag;
            }
            connect.setWriteLine(playerName);
            threadSleep(200);
-
            return;
        }
        if(process == mapConstant.beginCoords){
@@ -649,32 +760,45 @@ private boolean flag;
        if(process == mapConstant.game){
            if(course == true) {
                connect.setWriteLine(sendMessage);
-              /* changeCourse();
-               c = Calendar.getInstance();
-               time = new String(c.get(c.HOUR) + ":" + c.get(c.MINUTE) + ":" + c.get(c.SECOND));
-               processText = ("завершил ход  ");
-               dataTable.add(new TableText(playerName, processText, time));*/
+               if(grenadeFlag) {
+                   grenadeFlag = false;
+                   disableGrenadeImages();
+               }
            }
-
            return;
        }
 
     }
     public void treasureDialog(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Ура");
+        alert.setTitle("Labyrinth");
         alert.setHeaderText("Вы нашли один из кладов");
         alert.setContentText("Забрать клад?");
         ButtonType buttonTypeYes = new ButtonType("ДА", ButtonBar.ButtonData.YES);
         ButtonType buttonTypeNo = new ButtonType("НЕТ", ButtonBar.ButtonData.NO);
         alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeYes){
+        if (result.get() == buttonTypeNo){
             connect.setWriteLine(mapConstant.pickTreasure);
-        } else if (result.get() == buttonTypeNo) {
+        } else if (result.get() == buttonTypeYes) {
         }
         treasureFlag = false;
     }
+
+    public void gameEndDialog(int result){
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Labyrinth");
+        if(result == 0) {
+            alert.setHeaderText("Поздравляем!");
+            alert.setContentText("Вы выиграли.");
+        }
+        else{
+            alert.setHeaderText("Жаль конечно:(");
+            alert.setContentText("Но вы проиграли.");
+        }
+    }
+
     public void threadSleep(long time){
         try {
             Thread.sleep(time);
@@ -695,9 +819,6 @@ private boolean flag;
         if( e.getCode().toString() == "RIGHT" && coords.getRow()<9 )
             coords.setRow(coords.getRow()+1);
         GridPane.setConstraints(currentImage, coords.getRow(), coords.getColumn());
-    }
-    public void playerExample(){
-
     }
 
 }
