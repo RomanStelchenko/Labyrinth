@@ -23,10 +23,10 @@ public class MapBuildController {
     private int connectSelection;
     private GameController children;
     private ImageView[] trapBonusImages;
-    private Coords[] trapBonus;
+    private Coordinates[] trapBonus;
     private int [][]labyrinth;
     private ImageView currentImage;
-    private Coords coords;
+    private Coordinates Coordinates;
     @FXML
     Button serverButton, clientButton;
     @FXML
@@ -41,7 +41,7 @@ public class MapBuildController {
     public void initialize(){
         currentImage = new ImageView(new Image(mapConstant.blue));
         mapPane.add(currentImage,0,0);
-        coords = new Coords(0,0);
+        Coordinates = new Coordinates(0,0);
 
         labyrinth = new int[10][10];
         for(int i=0;i<10;i++)
@@ -62,10 +62,10 @@ public class MapBuildController {
                 mapPaneImage.setImage(new Image(mapConstant.wallImagesUrl[labyrinth[i][j]]));
             }
 
-            trapBonus = new Coords[15];
+            trapBonus = new Coordinates[15];
             trapBonusImages  = new ImageView[15];
             for(int i=0;i<15;i++){
-                trapBonus[i] = new Coords(Integer.valueOf(myfile.readLine()),Integer.valueOf(myfile.readLine()));
+                trapBonus[i] = new Coordinates(Integer.valueOf(myfile.readLine()),Integer.valueOf(myfile.readLine()));
                 trapBonusImages[i] = new ImageView(new Image(mapConstant.trapBonusImagesUrl[i],40,40,false,false));
                 trapBonusImages[i].setVisible(true);
                 mapPane.add(trapBonusImages[i],trapBonus[i].getRow(),trapBonus[i].getColumn());
@@ -75,10 +75,10 @@ public class MapBuildController {
         }
 
 /*
-        trapBonus = new Coords[15];
+        trapBonus = new Coordinates[15];
         trapBonusImages  = new ImageView[15];
         for(int i=0;i<15;i++) {
-            trapBonus[i] = new Coords(15,15);
+            trapBonus[i] = new Coordinates(15,15);
             trapBonusImages[i] = new ImageView(new Image(mapConstant.trapBonusImagesUrl[i],40,40,false,false));
             trapBonusImages[i].setVisible(false);
         }
@@ -91,12 +91,12 @@ public class MapBuildController {
     public void mapClicked(MouseEvent e) {
         Node source = (Node) e.getSource();
         if (mapPane.getRowIndex(source) != null)
-            coords.setColumn(mapPane.getRowIndex(source));
-        else coords.setColumn(0);
+            Coordinates.setColumn(mapPane.getRowIndex(source));
+        else Coordinates.setColumn(0);
         if (mapPane.getColumnIndex(source) != null)
-            coords.setRow(mapPane.getColumnIndex(source));
-        else coords.setRow(0);
-        GridPane.setConstraints(currentImage, coords.getRow(), coords.getColumn());
+            Coordinates.setRow(mapPane.getColumnIndex(source));
+        else Coordinates.setRow(0);
+        GridPane.setConstraints(currentImage, Coordinates.getRow(), Coordinates.getColumn());
     }
     public void spriteWallClicked(MouseEvent event){
         int row = 0;
@@ -107,9 +107,9 @@ public class MapBuildController {
         if(wallPane.getColumnIndex(source)!= null)
             column = wallPane.getColumnIndex(source);
 
-        ImageView mapPaneImage  = (ImageView)mapPane.getChildren().get(coords.getColumn()*10+coords.getRow());
+        ImageView mapPaneImage  = (ImageView)mapPane.getChildren().get(Coordinates.getColumn()*10+Coordinates.getRow());
         mapPaneImage.setImage(new Image(mapConstant.wallImagesUrl[row*4 + column]));
-        labyrinth[coords.getRow()][coords.getColumn()] = row*4 + column;
+        labyrinth[Coordinates.getRow()][Coordinates.getColumn()] = row*4 + column;
 
     }
     public void spriteTrapBonusClicked(MouseEvent event){
@@ -120,21 +120,21 @@ public class MapBuildController {
             row = trapBonusPane.getRowIndex(source);
         if(trapBonusPane.getColumnIndex(source)!= null)
             column = trapBonusPane.getColumnIndex(source);
-        GridPane.setConstraints(trapBonusImages[row*4+column],coords.getRow(),coords.getColumn());
+        GridPane.setConstraints(trapBonusImages[row*4+column],Coordinates.getRow(),Coordinates.getColumn());
         trapBonusImages[row*4+column].setVisible(true);
-        trapBonus[row*4+column].setRowColumn(coords.getRow(),coords.getColumn());
+        trapBonus[row*4+column].setRowColumn(Coordinates.getRow(),Coordinates.getColumn());
 
     }
     public void keyPressed(KeyEvent e) {
-        if( e.getCode().toString() == "UP" && coords.getColumn()>0 )
-            coords.setColumn(coords.getColumn()-1);
-        if( e.getCode().toString() == "DOWN" && coords.getColumn()<9 )
-            coords.setColumn(coords.getColumn()+1);
-        if( e.getCode().toString() == "LEFT" && coords.getRow()>0 )
-            coords.setRow(coords.getRow()-1);
-        if( e.getCode().toString() == "RIGHT" && coords.getRow()<9 )
-            coords.setRow(coords.getRow()+1);
-        GridPane.setConstraints(currentImage, coords.getRow(), coords.getColumn());
+        if( e.getCode().toString() == "UP" && Coordinates.getColumn()>0 )
+            Coordinates.setColumn(Coordinates.getColumn()-1);
+        if( e.getCode().toString() == "DOWN" && Coordinates.getColumn()<9 )
+            Coordinates.setColumn(Coordinates.getColumn()+1);
+        if( e.getCode().toString() == "LEFT" && Coordinates.getRow()>0 )
+            Coordinates.setRow(Coordinates.getRow()-1);
+        if( e.getCode().toString() == "RIGHT" && Coordinates.getRow()<9 )
+            Coordinates.setRow(Coordinates.getRow()+1);
+        GridPane.setConstraints(currentImage, Coordinates.getRow(), Coordinates.getColumn());
     }
 
     public void startButtonClicked(){

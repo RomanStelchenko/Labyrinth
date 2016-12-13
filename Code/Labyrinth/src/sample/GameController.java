@@ -24,14 +24,14 @@ public class GameController {
     private ImageView currentImage;
     private ImageView[] trapBonusImages;
     private ImageView[] enemyTrapBonusImages;
-    private Coords[] trapBonus;
-    private Coords[] enemyTrapBonus;
+    private Coordinates[] trapBonus;
+    private Coordinates[] enemyTrapBonus;
     private int enemyTreasureValue;
     private int [][]labyrinth,enemyLabyrinth;
     private boolean course;
-    private Coords coords;
-    private Coords playerCoords;
-    private Coords enemyCoords;
+    private Coordinates Coordinates;
+    private Coordinates playerCoordinates;
+    private Coordinates enemyCoordinates;
     private boolean enemyCrossbowFlag,enemyCrutchFlag,enemyTrapFlag;
     private boolean playerCrossbowFlag,playerCrutchFlag,playerTrapFlag;
     private Maps maps;
@@ -58,6 +58,7 @@ public class GameController {
     private int courseNumbers = 0;
     private int courseAll = 0;
     private String readLine;
+    private boolean mapBorder;
     private readLineThread readThread;
     @FXML
     GridPane mapPane;
@@ -82,6 +83,7 @@ public class GameController {
     private   ImageView enemyImage;
     @FXML
     public void initialize(){
+        mapBorder = false;
         bombValue = 3;
         selectionValue = 4;
         grenadeValue  = 3;
@@ -97,11 +99,11 @@ public class GameController {
         course = false;
         labyrinth = new int[10][10];
         enemyLabyrinth = new int[10][10];
-        coords = new Coords(0,0);
-        trapBonus = new Coords[15];
+        Coordinates = new Coordinates(0,0);
+        trapBonus = new Coordinates[15];
         trapBonusImages  = new ImageView[15];
         for(int i=0;i<15;i++) {
-            trapBonus[i] = new Coords();
+            trapBonus[i] = new Coordinates();
             trapBonusImages[i] = new ImageView(new Image(mapConstant.trapBonusImagesUrl[i],40,40,false,false));
             mapPane.add(trapBonusImages[i],0,0);
             trapBonusImages[i].setVisible(false);
@@ -114,7 +116,7 @@ public class GameController {
 
         enemyMapImage = new ImageView();
         enemyLabyrinth = maps.getEnemyMap().getMap().getLabyrinth();
-        enemyTrapBonus = new Coords[15];
+        enemyTrapBonus = new Coordinates[15];
         enemyTrapBonus = maps.getEnemyMap().getMap().getTrapBonus();
         for(int i=0;i<10;i++)
             for(int j=0;j<10;j++) {
@@ -265,12 +267,12 @@ public class GameController {
     public void mapClicked(MouseEvent e) {
         Node source = (Node) e.getSource();
         if (mapPane.getRowIndex(source) != null)
-            coords.setColumn(mapPane.getRowIndex(source));
-        else coords.setColumn(0);
+            Coordinates.setColumn(mapPane.getRowIndex(source));
+        else Coordinates.setColumn(0);
         if (mapPane.getColumnIndex(source) != null)
-            coords.setRow(mapPane.getColumnIndex(source));
-        else coords.setRow(0);
-        GridPane.setConstraints(currentImage, coords.getRow(), coords.getColumn());
+            Coordinates.setRow(mapPane.getColumnIndex(source));
+        else Coordinates.setRow(0);
+        GridPane.setConstraints(currentImage, Coordinates.getRow(), Coordinates.getColumn());
     }
     public void spriteWallClicked(MouseEvent event){
         int row = 0;
@@ -281,9 +283,9 @@ public class GameController {
         if(wallPane.getColumnIndex(source)!= null)
             column = wallPane.getColumnIndex(source);
 
-        ImageView mapPaneImage  = (ImageView)mapPane.getChildren().get(coords.getColumn()*10+coords.getRow());
+        ImageView mapPaneImage  = (ImageView)mapPane.getChildren().get(Coordinates.getColumn()*10+Coordinates.getRow());
         mapPaneImage.setImage(new Image(mapConstant.wallImagesUrl[row*4 + column]));
-        labyrinth[coords.getRow()][coords.getColumn()] = row*4 + column;
+        labyrinth[Coordinates.getRow()][Coordinates.getColumn()] = row*4 + column;
 
     }
     public void spriteTrapBonusClicked(MouseEvent event){
@@ -294,9 +296,9 @@ public class GameController {
             row = trapBonusPane.getRowIndex(source);
         if(trapBonusPane.getColumnIndex(source)!= null)
             column = trapBonusPane.getColumnIndex(source);
-        GridPane.setConstraints(trapBonusImages[row*4+column],coords.getRow(),coords.getColumn());
+        GridPane.setConstraints(trapBonusImages[row*4+column],Coordinates.getRow(),Coordinates.getColumn());
         trapBonusImages[row*4+column].setVisible(true);
-        trapBonus[row*4+column].setRowColumn(coords.getRow(),coords.getColumn());
+        trapBonus[row*4+column].setRowColumn(Coordinates.getRow(),Coordinates.getColumn());
 
     }
     public void bomb1Clicked(){
@@ -356,19 +358,19 @@ public class GameController {
            readyAll++;
            if (readyAll == 2) {
                processLabel.setText("Выбор стартовых клеток игроками");
-               process = mapConstant.beginCoords;
+               process = mapConstant.beginCoordinates;
            }
            return;
        }
 
-       if(process == mapConstant.beginCoords){
-           enemyCoords = new Coords(Integer.valueOf(Character.toString(readLine.charAt(0))),Integer.valueOf(Character.toString(readLine.charAt(1))));
+       if(process == mapConstant.beginCoordinates){
+           enemyCoordinates = new Coordinates(Integer.valueOf(Character.toString(readLine.charAt(0))),Integer.valueOf(Character.toString(readLine.charAt(1))));
            enemyImage.setVisible(true);
-           enemyMapPane.setConstraints(enemyImage, enemyCoords.getRow(), enemyCoords.getColumn());
+           enemyMapPane.setConstraints(enemyImage, enemyCoordinates.getRow(), enemyCoordinates.getColumn());
 
            c = Calendar.getInstance();
            time = new String(c.get(c.HOUR) +":"+c.get(c.MINUTE) +":"+c.get(c.SECOND));
-           processText = ("выбрал стартовую клетку : "+enemyCoords.getRow()+"-"+enemyCoords.getColumn());
+           processText = ("выбрал стартовую клетку : "+enemyCoordinates.getRow()+"-"+enemyCoordinates.getColumn());
            dataTable.add(new TableText(enemyName,processText,time));
            readyAll++;
            if (readyAll == 4) {
@@ -437,14 +439,16 @@ public class GameController {
 
 
                int[] wall = new int[4];
-               wall = toBinary(enemyLabyrinth[enemyCoords.getRow()][enemyCoords.getColumn()]);
+               wall = toBinary(enemyLabyrinth[enemyCoordinates.getRow()][enemyCoordinates.getColumn()]);
 
                if(selection.equals(mapConstant.leftRequest)) {
                     if(wall[0]==0) {
-                        enemyCoords.decRow();
-                        if(enemyCoords.getRow()<0){
-                            if(enemyTreasureValue == 1)
+                        enemyCoordinates.decRow();
+                        if(enemyCoordinates.getRow()<0){
+                            if(enemyTreasureValue == 1) {
                                 connect.setWriteLine("Клад настоящий");
+                                gameEndDialog(0);
+                            }
                             else if(enemyTreasureValue == 2)
                                     connect.setWriteLine("Клад ложный");
                                 else connect.setWriteLine("У вас нету клада");
@@ -453,7 +457,7 @@ public class GameController {
                             return;
                         }
 
-                        enemyMapPane.setConstraints(enemyImage, enemyCoords.getRow(), enemyCoords.getColumn());
+                        enemyMapPane.setConstraints(enemyImage, enemyCoordinates.getRow(), enemyCoordinates.getColumn());
                         trapBonusExample();
                         connect.setWriteLine("Да влево можно");
                     }else {
@@ -462,10 +466,12 @@ public class GameController {
                }
                if(selection.equals(mapConstant.rightRequest)) {
                    if(wall[1]==0) {
-                       enemyCoords.incRow();
-                       if(enemyCoords.getRow()>9){
-                           if(enemyTreasureValue == 1)
+                       enemyCoordinates.incRow();
+                       if(enemyCoordinates.getRow()>9){
+                           if(enemyTreasureValue == 1) {
                                connect.setWriteLine("Клад настоящий");
+                               gameEndDialog(0);
+                           }
                            else if(enemyTreasureValue == 2)
                                connect.setWriteLine("Клад ложный");
                            else connect.setWriteLine("У вас нету клада");
@@ -474,7 +480,7 @@ public class GameController {
                            return;
                        }
 
-                       enemyMapPane.setConstraints(enemyImage, enemyCoords.getRow(), enemyCoords.getColumn());
+                       enemyMapPane.setConstraints(enemyImage, enemyCoordinates.getRow(), enemyCoordinates.getColumn());
                        trapBonusExample();
                        connect.setWriteLine("Да вправо можно");
                    }else {
@@ -483,10 +489,12 @@ public class GameController {
                }
                if(selection.equals(mapConstant.upRequest)) {
                    if(wall[2]==0) {
-                       enemyCoords.decColumn();
-                       if(enemyCoords.getColumn()<0){
-                           if(enemyTreasureValue == 1)
+                       enemyCoordinates.decColumn();
+                       if(enemyCoordinates.getColumn()<0){
+                           if(enemyTreasureValue == 1) {
                                connect.setWriteLine("Клад настоящий");
+                               gameEndDialog(0);
+                           }
                            else if(enemyTreasureValue == 2)
                                connect.setWriteLine("Клад ложный");
                            else connect.setWriteLine("У вас нету клада");
@@ -494,7 +502,7 @@ public class GameController {
                            connect.setWriteLine(mapConstant.endCourseRequest);
                            return;
                        }
-                       enemyMapPane.setConstraints(enemyImage, enemyCoords.getRow(), enemyCoords.getColumn());
+                       enemyMapPane.setConstraints(enemyImage, enemyCoordinates.getRow(), enemyCoordinates.getColumn());
                        trapBonusExample();
                        connect.setWriteLine("Да вверх можно");
                    }else {
@@ -503,10 +511,12 @@ public class GameController {
                }
                if(selection.equals(mapConstant.downRequest)) {
                    if(wall[3]==0) {
-                       enemyCoords.incColumn();
-                       if(enemyCoords.getColumn()>9){
-                           if(enemyTreasureValue == 1)
+                       enemyCoordinates.incColumn();
+                       if(enemyCoordinates.getColumn()>9){
+                           if(enemyTreasureValue == 1) {
                                connect.setWriteLine("Клад настоящий");
+                               gameEndDialog(0);
+                           }
                            else if(enemyTreasureValue == 2)
                                connect.setWriteLine("Клад ложный");
                            else connect.setWriteLine("У вас нету клада");
@@ -517,7 +527,7 @@ public class GameController {
 
                        trapBonusExample();
                        connect.setWriteLine("Вниз можно");
-                       enemyMapPane.setConstraints(enemyImage, enemyCoords.getRow(), enemyCoords.getColumn());
+                       enemyMapPane.setConstraints(enemyImage, enemyCoordinates.getRow(), enemyCoordinates.getColumn());
                    }else {
                        connect.setWriteLine("нельзя вниз");
                    }
@@ -526,14 +536,14 @@ public class GameController {
                }
                if(selection.equals(mapConstant.grenadeLeftRequest)) {
                     wall[0]=0;
-                   enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoords.getColumn()*10 + enemyCoords.getRow());
-                   enemyLabyrinth[enemyCoords.getRow()][enemyCoords.getColumn()] = toDec(wall);
+                   enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoordinates.getColumn()*10 + enemyCoordinates.getRow());
+                   enemyLabyrinth[enemyCoordinates.getRow()][enemyCoordinates.getColumn()] = toDec(wall);
                    enemyMapImage.setImage(new Image(mapConstant.wallImagesUrl[toDec(wall)]));
-                   if(enemyCoords.getRow()-1 >=0){
-                       wall = toBinary(enemyLabyrinth[enemyCoords.getRow()-1][enemyCoords.getColumn()]);
+                   if(enemyCoordinates.getRow()-1 >=0){
+                       wall = toBinary(enemyLabyrinth[enemyCoordinates.getRow()-1][enemyCoordinates.getColumn()]);
                        wall[1] = 0;
-                       enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoords.getColumn()*10 + enemyCoords.getRow()-1);
-                       enemyLabyrinth[enemyCoords.getRow()-1][enemyCoords.getColumn()] = toDec(wall);
+                       enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoordinates.getColumn()*10 + enemyCoordinates.getRow()-1);
+                       enemyLabyrinth[enemyCoordinates.getRow()-1][enemyCoordinates.getColumn()] = toDec(wall);
                        enemyMapImage.setImage(new Image(mapConstant.wallImagesUrl[toDec(wall)]));
                    }
                    connect.setWriteLine("Граната брошена");
@@ -541,42 +551,42 @@ public class GameController {
                }
                if(selection.equals(mapConstant.grenadeRightRequest)) {
                    wall[1]=0;
-                   enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoords.getColumn()*10 + enemyCoords.getRow());
-                   enemyLabyrinth[enemyCoords.getRow()][enemyCoords.getColumn()] = toDec(wall);
+                   enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoordinates.getColumn()*10 + enemyCoordinates.getRow());
+                   enemyLabyrinth[enemyCoordinates.getRow()][enemyCoordinates.getColumn()] = toDec(wall);
                    enemyMapImage.setImage(new Image(mapConstant.wallImagesUrl[toDec(wall)]));
-                   if(enemyCoords.getRow()+1 <=9){
-                       wall = toBinary(enemyLabyrinth[enemyCoords.getRow()+1][enemyCoords.getColumn()]);
+                   if(enemyCoordinates.getRow()+1 <=9){
+                       wall = toBinary(enemyLabyrinth[enemyCoordinates.getRow()+1][enemyCoordinates.getColumn()]);
                        wall[0] = 0;
-                       enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoords.getColumn()*10 + enemyCoords.getRow()+1);
-                       enemyLabyrinth[enemyCoords.getRow()+1][enemyCoords.getColumn()] = toDec(wall);
+                       enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoordinates.getColumn()*10 + enemyCoordinates.getRow()+1);
+                       enemyLabyrinth[enemyCoordinates.getRow()+1][enemyCoordinates.getColumn()] = toDec(wall);
                        enemyMapImage.setImage(new Image(mapConstant.wallImagesUrl[toDec(wall)]));
                    }
                    connect.setWriteLine("Граната брошена");
                }
                if(selection.equals(mapConstant.grenadeUpRequest)) {
                    wall[2]=0;
-                   enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoords.getColumn()*10 + enemyCoords.getRow());
-                   enemyLabyrinth[enemyCoords.getRow()][enemyCoords.getColumn()] = toDec(wall);
+                   enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoordinates.getColumn()*10 + enemyCoordinates.getRow());
+                   enemyLabyrinth[enemyCoordinates.getRow()][enemyCoordinates.getColumn()] = toDec(wall);
                    enemyMapImage.setImage(new Image(mapConstant.wallImagesUrl[toDec(wall)]));
-                   if(enemyCoords.getColumn()-1 >=0){
-                       wall = toBinary(enemyLabyrinth[enemyCoords.getRow()][enemyCoords.getColumn()-1]);
+                   if(enemyCoordinates.getColumn()-1 >=0){
+                       wall = toBinary(enemyLabyrinth[enemyCoordinates.getRow()][enemyCoordinates.getColumn()-1]);
                        wall[3] = 0;
-                       enemyMapImage = (ImageView) enemyMapPane.getChildren().get( (enemyCoords.getColumn()-1)*10 + enemyCoords.getRow());
-                       enemyLabyrinth[enemyCoords.getRow()][enemyCoords.getColumn()-1] = toDec(wall);
+                       enemyMapImage = (ImageView) enemyMapPane.getChildren().get( (enemyCoordinates.getColumn()-1)*10 + enemyCoordinates.getRow());
+                       enemyLabyrinth[enemyCoordinates.getRow()][enemyCoordinates.getColumn()-1] = toDec(wall);
                        enemyMapImage.setImage(new Image(mapConstant.wallImagesUrl[toDec(wall)]));
                    }
                    connect.setWriteLine("Граната брошена");
                }
                if(selection.equals(mapConstant.grenadeDownRequest)) {
                    wall[3]=0;
-                   enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoords.getColumn()*10 + enemyCoords.getRow());
-                   enemyLabyrinth[enemyCoords.getRow()][enemyCoords.getColumn()] = toDec(wall);
+                   enemyMapImage = (ImageView) enemyMapPane.getChildren().get( enemyCoordinates.getColumn()*10 + enemyCoordinates.getRow());
+                   enemyLabyrinth[enemyCoordinates.getRow()][enemyCoordinates.getColumn()] = toDec(wall);
                    enemyMapImage.setImage(new Image(mapConstant.wallImagesUrl[toDec(wall)]));
-                   if(enemyCoords.getColumn()+1 <=9){
-                       wall = toBinary(enemyLabyrinth[enemyCoords.getRow()][enemyCoords.getColumn()+1]);
+                   if(enemyCoordinates.getColumn()+1 <=9){
+                       wall = toBinary(enemyLabyrinth[enemyCoordinates.getRow()][enemyCoordinates.getColumn()+1]);
                        wall[2] = 0;
-                       enemyMapImage = (ImageView) enemyMapPane.getChildren().get( (enemyCoords.getColumn()+1)*10 + enemyCoords.getRow());
-                       enemyLabyrinth[enemyCoords.getRow()][enemyCoords.getColumn()+1] = toDec(wall);
+                       enemyMapImage = (ImageView) enemyMapPane.getChildren().get( (enemyCoordinates.getColumn()+1)*10 + enemyCoordinates.getRow());
+                       enemyLabyrinth[enemyCoordinates.getRow()][enemyCoordinates.getColumn()+1] = toDec(wall);
                        enemyMapImage.setImage(new Image(mapConstant.wallImagesUrl[toDec(wall)]));
                    }
                    connect.setWriteLine("Граната брошена");
@@ -609,29 +619,29 @@ public class GameController {
     public void trapBonusExample(){
         int i;
         for(i=0;i<15;i++){
-            if(enemyTrapBonus[i].getRow() ==  enemyCoords.getRow() &&
-                    enemyTrapBonus[i].getColumn() ==  enemyCoords.getColumn()) {
+            if(enemyTrapBonus[i].getRow() ==  enemyCoordinates.getRow() &&
+                    enemyTrapBonus[i].getColumn() ==  enemyCoordinates.getColumn()) {
                 break;
             }
         }
         if(i == mapConstant.hole1I){
-            enemyCoords.setRowColumn(enemyTrapBonus[mapConstant.door1I]);
-            enemyMapPane.setConstraints(enemyImage, enemyCoords.getRow(), enemyCoords.getColumn());
+            enemyCoordinates.setRowColumn(enemyTrapBonus[mapConstant.door1I]);
+            enemyMapPane.setConstraints(enemyImage, enemyCoordinates.getRow(), enemyCoordinates.getColumn());
             connect.setWriteLine("Попал в яму номер 1");
         }
         if(i == mapConstant.hole2I){
-            enemyCoords.setRowColumn(enemyTrapBonus[mapConstant.door2I]);
-            enemyMapPane.setConstraints(enemyImage, enemyCoords.getRow(), enemyCoords.getColumn());
+            enemyCoordinates.setRowColumn(enemyTrapBonus[mapConstant.door2I]);
+            enemyMapPane.setConstraints(enemyImage, enemyCoordinates.getRow(), enemyCoordinates.getColumn());
             connect.setWriteLine("Попал в яму номер 2");
         }
         if(i == mapConstant.hole3I){
-            enemyCoords.setRowColumn(enemyTrapBonus[mapConstant.door3I]);
-            enemyMapPane.setConstraints(enemyImage, enemyCoords.getRow(), enemyCoords.getColumn());
+            enemyCoordinates.setRowColumn(enemyTrapBonus[mapConstant.door3I]);
+            enemyMapPane.setConstraints(enemyImage, enemyCoordinates.getRow(), enemyCoordinates.getColumn());
             connect.setWriteLine("Попал в яму номер 3");
         }
         if(i == mapConstant.hole4I){
-            enemyCoords.setRowColumn(enemyTrapBonus[mapConstant.door4I]);
-            enemyMapPane.setConstraints(enemyImage, enemyCoords.getRow(), enemyCoords.getColumn());
+            enemyCoordinates.setRowColumn(enemyTrapBonus[mapConstant.door4I]);
+            enemyMapPane.setConstraints(enemyImage, enemyCoordinates.getRow(), enemyCoordinates.getColumn());
             connect.setWriteLine("Попал в яму номер 4");
         }
         if(i == mapConstant.door1I){
@@ -736,19 +746,19 @@ public class GameController {
            readyAll++;
            if (readyAll == 2) {
                processLabel.setText("Выбор стартовых клеток игроками");
-               process = mapConstant.beginCoords;
+               process = mapConstant.beginCoordinates;
            }
            connect.setWriteLine(playerName);
            threadSleep(200);
            return;
        }
-       if(process == mapConstant.beginCoords){
+       if(process == mapConstant.beginCoordinates){
            c = Calendar.getInstance();
            time = new String(c.get(c.HOUR) + ":" + c.get(c.MINUTE) + ":" + c.get(c.SECOND));
-           processText = ("выбрал стартовую клетку : "+ coords.getRow()+"-"+ coords.getColumn());
+           processText = ("выбрал стартовую клетку : "+ Coordinates.getRow()+"-"+ Coordinates.getColumn());
            dataTable.add(new TableText(playerName, processText, time));
            readyAll++;
-           connect.setWriteLine((Integer.toString(coords.getRow())+Integer.toString(coords.getColumn())));
+           connect.setWriteLine((Integer.toString(Coordinates.getRow())+Integer.toString(Coordinates.getColumn())));
            threadSleep(200);
            if (readyAll == 4) {
                process = mapConstant.course;
@@ -789,7 +799,7 @@ public class GameController {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Labyrinth");
-        if(result == 0) {
+        if(result == 1) {
             alert.setHeaderText("Поздравляем!");
             alert.setContentText("Вы выиграли.");
         }
@@ -797,6 +807,7 @@ public class GameController {
             alert.setHeaderText("Жаль конечно:(");
             alert.setContentText("Но вы проиграли.");
         }
+        alert.show();
     }
 
     public void threadSleep(long time){
@@ -810,15 +821,15 @@ public class GameController {
         playerName = new String(name);
     }
     public void keyPressed(KeyEvent e) {
-        if( e.getCode().toString() == "UP" && coords.getColumn()>0 )
-            coords.setColumn(coords.getColumn()-1);
-        if( e.getCode().toString() == "DOWN" && coords.getColumn()<9 )
-            coords.setColumn(coords.getColumn()+1);
-        if( e.getCode().toString() == "LEFT" && coords.getRow()>0 )
-            coords.setRow(coords.getRow()-1);
-        if( e.getCode().toString() == "RIGHT" && coords.getRow()<9 )
-            coords.setRow(coords.getRow()+1);
-        GridPane.setConstraints(currentImage, coords.getRow(), coords.getColumn());
+        if( e.getCode().toString() == "UP" && Coordinates.getColumn()>0 )
+            Coordinates.setColumn(Coordinates.getColumn()-1);
+        if( e.getCode().toString() == "DOWN" && Coordinates.getColumn()<9 )
+            Coordinates.setColumn(Coordinates.getColumn()+1);
+        if( e.getCode().toString() == "LEFT" && Coordinates.getRow()>0 )
+            Coordinates.setRow(Coordinates.getRow()-1);
+        if( e.getCode().toString() == "RIGHT" && Coordinates.getRow()<9 )
+            Coordinates.setRow(Coordinates.getRow()+1);
+        GridPane.setConstraints(currentImage, Coordinates.getRow(), Coordinates.getColumn());
     }
 
 }

@@ -110,7 +110,7 @@ public class Constants {
     public String onTrap = "16";
 
     public static int ready =0;
-    public static int beginCoords = 1;
+    public static int beginCoordinates = 1;
     public static int course = 2;
     public static int game =3;
     Constants(){}

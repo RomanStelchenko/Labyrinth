@@ -8,12 +8,12 @@ public class MapFacade implements Facade {
     MapFacade(){
         map = new GameMap();
     }
-    MapFacade(int[][] labyrinth, Coords[] trapBonus) {
+    MapFacade(int[][] labyrinth, Coordinates[] trapBonus) {
         map = new GameMap();
         map.setLabyrinth(labyrinth);
         map.setTrapBonus(trapBonus);
     }
-    public void setMap(int[][] labyrinth, Coords[] trapBonus) {
+    public void setMap(int[][] labyrinth, Coordinates[] trapBonus) {
         map.setLabyrinth(labyrinth);
         map.setTrapBonus(trapBonus);
     }
